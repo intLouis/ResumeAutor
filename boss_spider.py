@@ -539,29 +539,23 @@ def process_job_details(driver, job_card, index):
         salary, job_details = extract_salary_from_api(driver)
         
         # 可以在这里添加额外的处理逻辑
+        # todo 这里需要处理
         if job_details:
             # 提取关键职位信息
             job_name = job_details.get("jobName", "")
             job_info = f"""
-            职位名称: {job_name}
-            公司名称: {job_details.get("company", {}).get("name", "")}
-            薪资范围: {salary}
-            工作地点: {job_details.get("city", "未指定")}
-            所需技能: {", ".join(job_details.get("skills", []))}
-            工作年限: {job_details.get("workYear", "未指定")}
-            职位描述: {job_details.get("description", "")}
-            学历要求: {job_details.get("education", "未指定")}
-            职位类型: {job_details.get("jobType", "未指定")}
-            发布时间: {job_details.get("publishTime", "未指定")}
-            部门名称: {job_details.get("departmentName", "未指定")}
-            职位亮点: {", ".join(job_details.get("highlights", ["未指定"]))}
-            职位职责: {job_details.get("responsibility", "未指定")}
-            职位要求: {job_details.get("requirement", "未指定")}
-            工作性质: {job_details.get("jobNature", "未指定")}
-            行业领域: {job_details.get("industryField", "未指定")}
-            公司规模: {job_details.get("company", {}).get("size", "未指定")}
-            公司类型: {job_details.get("company", {}).get("type", "未指定")}
+            职位名称: {job_name}\n
+            公司名称: {job_details.get("company", {}).get("name", "")}\n
+            薪资范围: {salary}\n
+            工作地点: {job_details.get("city", "未指定")}\n
+            所需技能: {", ".join(job_details.get("skills", []))}\n
+            工作年限: {job_details.get("workYear", "未指定")}\n
+            职位描述: {job_details.get("description", "")}\n
+            学历要求: {job_details.get("education", "未指定")}\n
+            公司信息: {job_details.get("company", {})}\n
             """
+            # 打印job_info
+            print("process_job_details job_info:",job_info)
             # 设计system prompt，告诉AI如何评估匹配度
             system_prompt = """你是一位专业的招聘顾问，需要评估求职者简历与职位的匹配程度。
             首先检查以下两个关键条件:

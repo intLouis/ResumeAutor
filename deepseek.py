@@ -14,10 +14,7 @@ def chat(prompt: str, system_prompt=None):
     if system_prompt:
         messages.insert(0, {"role": "system", "content": system_prompt})
     
-    print("\n===== 发送到DeepSeek的Prompt =====")
-    print(f"System Prompt: {system_prompt}")
-    print(f"User Prompt: {prompt}")
-    print("===================================\n")
+
     
     response = client.chat.completions.create(
         model="deepseek-reasoner",
