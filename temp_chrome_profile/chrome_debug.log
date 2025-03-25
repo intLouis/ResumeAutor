@@ -1,15 +1,14 @@
-[12128:12164:0326/004145.981:INFO:chrome_browser_cloud_management_controller.cc(196)] No machine level policy manager exists.
-[21192:19664:0326/004146.132:INFO:cpu_info.cc(53)] Available number of cores: 12
-[8292:2744:0326/004146.132:INFO:cpu_info.cc(53)] Available number of cores: 12
-[22180:19608:0326/004146.269:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)
-[7116:4464:0326/004146.360:INFO:cpu_info.cc(53)] Available number of cores: 12
-[3480:15412:0326/004146.461:INFO:cpu_info.cc(53)] Available number of cores: 12
-[20684:14912:0326/004146.497:ERROR:ssl_client_socket_impl.cc(877)] handshake failed; returned -1, SSL error code 1, net_error -101
-[12128:12164:0326/004150.223:INFO:CONSOLE(1008)] "%conMessageArrived(try error): undefined", source: https://static.zhipin.com/assets/zhipin/geek/socket.js?v=20250321 (1008)
-[12128:12164:0326/004150.223:INFO:CONSOLE(1009)] "ReferenceError: _ is not defined", source: https://static.zhipin.com/assets/zhipin/geek/socket.js?v=20250321 (1009)
-[12128:12164:0326/004152.409:INFO:CONSOLE(26)] "%c数星埋点初始化成功 color: #00bebd", source: https://www.zhipin.com/web/geek/job-recommend?ka=header-job-recommend (26)
-[12128:12164:0326/004152.756:INFO:CONSOLE(39)] "4️⃣ 42467882", source: https://static.zhipin.com/fe-zhipin-geek/web/chat/v5859/static/js/app.2acd8e88.js (39)
-[12128:12164:0326/004152.907:INFO:CONSOLE(39)] "🍎window.EventBus [object Object]", source: https://static.zhipin.com/fe-zhipin-geek/web/chat/v5859/static/js/app.2acd8e88.js (39)
-[12128:12164:0326/004153.326:INFO:CONSOLE(1008)] "%conMessageArrived(try error): undefined", source: https://static.zhipin.com/assets/zhipin/geek/socket.js?v=20250321 (1008)
-[12128:12164:0326/004153.331:INFO:CONSOLE(1009)] "ReferenceError: _ is not defined", source: https://static.zhipin.com/assets/zhipin/geek/socket.js?v=20250321 (1009)
-[20684:14912:0326/004357.749:ERROR:ssl_client_socket_impl.cc(877)] handshake failed; returned -1, SSL error code 1, net_error -101
+[5072:3480:0326/010431.895:INFO:chrome_browser_cloud_management_controller.cc(196)] No machine level policy manager exists.
+[21632:21816:0326/010432.034:INFO:cpu_info.cc(53)] Available number of cores: 12
+[22404:10560:0326/010432.045:INFO:cpu_info.cc(53)] Available number of cores: 12
+[19032:18888:0326/010432.191:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)
+[19084:5336:0326/010432.281:INFO:cpu_info.cc(53)] Available number of cores: 12
+[6908:1864:0326/010432.358:WARNING:spdy_session.cc(2980)] Received HEADERS for invalid stream 1
+[18236:22328:0326/010432.363:INFO:cpu_info.cc(53)] Available number of cores: 12
+[5072:3480:0326/010436.350:INFO:CONSOLE(1008)] "%conMessageArrived(try error): undefined", source: https://static.zhipin.com/assets/zhipin/geek/socket.js?v=20250321 (1008)
+[5072:3480:0326/010436.350:INFO:CONSOLE(1009)] "ReferenceError: _ is not defined", source: https://static.zhipin.com/assets/zhipin/geek/socket.js?v=20250321 (1009)
+[5072:3480:0326/010438.911:INFO:CONSOLE(26)] "%c数星埋点初始化成功 color: #00bebd", source: https://www.zhipin.com/web/geek/job-recommend?ka=header-job-recommend (26)
+[5072:3480:0326/010439.221:INFO:CONSOLE(39)] "4️⃣ 42467882", source: https://static.zhipin.com/fe-zhipin-geek/web/chat/v5859/static/js/app.2acd8e88.js (39)
+[5072:3480:0326/010439.335:INFO:CONSOLE(39)] "🍎window.EventBus [object Object]", source: https://static.zhipin.com/fe-zhipin-geek/web/chat/v5859/static/js/app.2acd8e88.js (39)
+[5072:3480:0326/010439.764:INFO:CONSOLE(1008)] "%conMessageArrived(try error): undefined", source: https://static.zhipin.com/assets/zhipin/geek/socket.js?v=20250321 (1008)
+[5072:3480:0326/010439.764:INFO:CONSOLE(1009)] "ReferenceError: _ is not defined", source: https://static.zhipin.com/assets/zhipin/geek/socket.js?v=20250321 (1009)

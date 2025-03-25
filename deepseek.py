@@ -7,12 +7,21 @@ client = OpenAI(api_key="sk-a6ca73fb7c7b4f549d9ff068f37b9b26", base_url="https:/
 
 #  实现deepseek api调用
 def chat(prompt: str, system_prompt=None):
+    messages = [
+        {"role": "user", "content": prompt},
+    ]
+    
+    if system_prompt:
+        messages.insert(0, {"role": "system", "content": system_prompt})
+    
+    print("\n===== 发送到DeepSeek的Prompt =====")
+    print(f"System Prompt: {system_prompt}")
+    print(f"User Prompt: {prompt}")
+    print("===================================\n")
+    
     response = client.chat.completions.create(
         model="deepseek-reasoner",
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": prompt},
-        ],
+        messages=messages,
         stream=False
     )
 
