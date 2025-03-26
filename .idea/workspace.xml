@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d2b2102-1de0-4260-a7b9-935015518f8d" name="Changes" comment="feat: v1.0 编辑readme">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boss_spider.py" beforeDir="false" afterPath="$PROJECT_DIR$/boss_spider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-    </list>
+    <list default="true" id="1d2b2102-1de0-4260-a7b9-935015518f8d" name="Changes" comment="feat: 简历配置化" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,7 +83,7 @@
       <workItem from="1742311981048" duration="1438000" />
       <workItem from="1742393050430" duration="1276000" />
       <workItem from="1742915016280" duration="7204000" />
-      <workItem from="1742958234701" duration="2150000" />
+      <workItem from="1742958234701" duration="2510000" />
     </task>
     <task id="LOCAL-00001" summary="feat: v1.0">
       <option name="closed" value="true" />
@@ -137,7 +133,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742967946809</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="feat: 简历配置化">
+      <option name="closed" value="true" />
+      <created>1742969272643</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1742969272643</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,6 +150,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: v1.0" />
     <MESSAGE value="feat: v1.0 编辑readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: v1.0 编辑readme" />
+    <MESSAGE value="feat: 简历配置化" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 简历配置化" />
   </component>
 </project>
