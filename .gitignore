@@ -1,4 +1,5 @@
 node_modules
 .venv
+.idea
 # Chrome profile directory
 /temp_chrome_profile
