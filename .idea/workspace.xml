@@ -4,61 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d2b2102-1de0-4260-a7b9-935015518f8d" name="Changes" comment="feat: v1.0">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="1d2b2102-1de0-4260-a7b9-935015518f8d" name="Changes" comment="feat: v1.0 编辑readme">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/BrowserMetrics-spare.pma" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/BrowsingTopicsState" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/BrowsingTopicsState" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Cache/Cache_Data/data_0" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Cache/Cache_Data/data_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Cache/Cache_Data/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Cache/Cache_Data/data_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Cache/Cache_Data/data_2" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Cache/Cache_Data/data_2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Cache/Cache_Data/data_3" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Cache/Cache_Data/data_3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/3392dcdf60e945d7_0" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/3392dcdf60e945d7_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/6f2504aebbe26120_0" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/6f2504aebbe26120_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/827e4dd334429e48_0" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/827e4dd334429e48_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/9475e7669608750e_0" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/9475e7669608750e_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/cb78e9623aba1a62_0" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/cb78e9623aba1a62_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/cde5450b84af7127_0" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/cde5450b84af7127_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/d08b8a7963eba420_0" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/d08b8a7963eba420_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/dc015737d8961bb0_0" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/dc015737d8961bb0_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/index-dir/the-real-index" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Code Cache/js/index-dir/the-real-index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/DIPS" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/DIPS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/DIPS-shm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/DIPS-wal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Extension State/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Extension State/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Extension State/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Extension State/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/GPUCache/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/GPUCache/data_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/History" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/History" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/History-journal" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/History-journal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Local Storage/leveldb/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Local Storage/leveldb/000003.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Local Storage/leveldb/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Local Storage/leveldb/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Local Storage/leveldb/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Local Storage/leveldb/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Network/Cookies" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Network/Cookies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Network/Network Persistent State" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Network/Network Persistent State" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Network/Reporting and NEL" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Network/Reporting and NEL" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Network/TransportSecurity" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Network/TransportSecurity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Preferences" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Preferences" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Session Storage/000009.log" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Session Storage/000009.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Session Storage/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Session Storage/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Session Storage/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Session Storage/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/SharedStorage-wal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Site Characteristics Database/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Site Characteristics Database/000003.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Site Characteristics Database/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Site Characteristics Database/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Site Characteristics Database/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Site Characteristics Database/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Sync Data/LevelDB/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Sync Data/LevelDB/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Sync Data/LevelDB/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Sync Data/LevelDB/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/Web Data" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/Web Data" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/000004.log" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/000004.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/metadata/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/metadata/000003.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/metadata/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/metadata/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/metadata/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Default/shared_proto_db/metadata/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/DevToolsActivePort" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/DevToolsActivePort" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/Local State" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/Local State" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/chrome_debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/chrome_debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/first_party_sets.db" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/first_party_sets.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_chrome_profile/segmentation_platform/ukm_db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/temp_chrome_profile/segmentation_platform/ukm_db-wal" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,16 +22,19 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "intLouis"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;intLouis&quot;
   }
-}]]></component>
+}</component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="83023dc6-d891-4510-ab04-d13cf75afb35" />
+  </component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/intLouis/ResumeAutor.git",
-    "accountId": "984a857c-ca22-43b3-8b65-6c932caf6a36"
+    "accountId": "83023dc6-d891-4510-ab04-d13cf75afb35"
   }
 }]]></component>
   <component name="ProjectColorInfo">{
@@ -106,15 +56,15 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-PY-243.23654.177" />
-        <option value="bundled-python-sdk-91d3a02ef49d-43b77aa2d136-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.23654.177" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
+        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
       </set>
     </attachedChunks>
   </component>
@@ -135,6 +85,7 @@
       <workItem from="1742311981048" duration="1438000" />
       <workItem from="1742393050430" duration="1276000" />
       <workItem from="1742915016280" duration="7204000" />
+      <workItem from="1742958234701" duration="1144000" />
     </task>
     <task id="LOCAL-00001" summary="feat: v1.0">
       <option name="closed" value="true" />
@@ -160,7 +111,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742923191844</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: v1.0 编辑readme">
+      <option name="closed" value="true" />
+      <created>1742958563060</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1742958563060</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,6 +127,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: v1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: v1.0" />
+    <MESSAGE value="feat: v1.0 编辑readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: v1.0 编辑readme" />
   </component>
 </project>
