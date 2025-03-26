@@ -4,5 +4,13 @@ pydantic==2.5.2
 python-multipart==0.0.6
 starlette==0.27.0
 typing-extensions==4.8.0
-duckduckgo-search
-langchain-community
+openai==1.1.0
+selenium==4.15.2
+webdriver-manager==4.0.1
+requests==2.31.0
+beautifulsoup4==4.12.2
+lxml==4.9.3
+pandas==2.1.1
+numpy==1.26.1
+markdown==3.5
+python-dotenv==1.0.0
