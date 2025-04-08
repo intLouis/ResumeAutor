@@ -17,7 +17,7 @@ def extract_salary_from_api(driver):
     """从已发生的网络请求中提取job detail API响应数据"""
     try:
         print("\n尝试提取职位详情API数据...")
-
+        time.sleep(1)  # 这里睡眠是因为点击后等待接口响应才能抓取到性能日志
         # 获取性能日志
         logs = driver.get_log('performance')
 
@@ -388,7 +388,6 @@ def process_job_details(driver, job_card, index):
     """处理单个职位的详情"""
     try:
         print(f"点击查看职位 {index + 1} 详情...")
-
         # 滚动到当前职位卡片以确保它在视图中
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", job_card)
         time.sleep(0.5)  # 短暂等待滚动完成
@@ -400,7 +399,7 @@ def process_job_details(driver, job_card, index):
         job_link.click()
 
         # 等待职位详情加载完成
-        print(f"等待职位详情页面加载...")
+        print(f"等待职位 {index + 1} 详情页面加载...")
 
         # 等待职位详情页面加载
         WebDriverWait(driver, 10).until(

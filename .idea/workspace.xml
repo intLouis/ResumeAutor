@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d2b2102-1de0-4260-a7b9-935015518f8d" name="Changes" comment="feat: v1.0">
-      <change afterPath="$PROJECT_DIR$/resume_config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/boss_spider.py" beforeDir="false" afterPath="$PROJECT_DIR$/boss_spider.py" afterDir="false" />
     </list>
@@ -88,7 +86,7 @@
       <workItem from="1743092645625" duration="1956000" />
       <workItem from="1743433201863" duration="3000" />
       <workItem from="1743433284273" duration="1227000" />
-      <workItem from="1744128748212" duration="2438000" />
+      <workItem from="1744128748212" duration="3718000" />
     </task>
     <task id="LOCAL-00001" summary="feat: v1.0">
       <option name="closed" value="true" />
@@ -114,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742923191844</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: v1.0">
+      <option name="closed" value="true" />
+      <created>1744131443461</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1744131443461</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
