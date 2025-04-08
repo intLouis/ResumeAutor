@@ -633,7 +633,7 @@ def main():
             print("应用筛选条件失败，继续尝试处理职位列表")
 
         # 处理职位列表
-        process_job_listings(driver, max_jobs=20)
+        process_job_listings(driver, max_jobs=200)
 
         print("职位爬取完成！")
 

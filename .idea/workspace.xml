@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d2b2102-1de0-4260-a7b9-935015518f8d" name="Changes" comment="feat: v1.0 bugfix">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/boss_spider.py" beforeDir="false" afterPath="$PROJECT_DIR$/boss_spider.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +85,7 @@
       <workItem from="1743092645625" duration="1956000" />
       <workItem from="1743433201863" duration="3000" />
       <workItem from="1743433284273" duration="1227000" />
-      <workItem from="1744128748212" duration="6550000" />
+      <workItem from="1744128748212" duration="6617000" />
     </task>
     <task id="LOCAL-00001" summary="feat: v1.0">
       <option name="closed" value="true" />
@@ -128,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744132522447</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: v1.0 bugfix">
+      <option name="closed" value="true" />
+      <created>1744135390138</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1744135390138</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
