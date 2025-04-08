@@ -392,6 +392,18 @@ def process_job_details(driver, job_card, index):
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", job_card)
         time.sleep(0.5)  # 短暂等待滚动完成
 
+        # 检查是否已经投递过（按钮显示"继续沟通"）
+        try:
+            job_button = job_card.find_element(By.CSS_SELECTOR, '.op-btn.op-btn-chat')
+            button_text = job_button.text.strip()
+            
+            if button_text == "继续沟通":
+                print(f"职位 {index + 1} 已经投递过（按钮显示'继续沟通'），跳过...")
+                return True
+        except:
+            # 如果在卡片中找不到按钮，继续处理（可能在详情页会有按钮）
+            pass
+
         # 等待职位卡片中的链接元素可点击
         job_link = WebDriverWait(job_card, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, '.job-name'))
@@ -410,7 +422,6 @@ def process_job_details(driver, job_card, index):
         salary, job_details = extract_salary_from_api(driver)
 
         # 可以在这里添加额外的处理逻辑
-        # todo 这里需要处理
         if job_details:
             # 提取关键职位信息
             job_name = job_details.get("jobName", "")
@@ -454,9 +465,78 @@ def process_job_details(driver, job_card, index):
             # 打印分析结果
             print(f"\n===== DeepSeek'{job_name}'分析结果 analysis result =====")
             print(result)
+            
+            # 解析JSON结果并提取分数
+            try:
+                result_json = json.loads(result)
+                score = result_json.get("score", 0)
+
+                # 如果分数大于85，调用投递函数
+                if score >= 85:
+                    print(f"职位 '{job_name}' 匹配分数高于85，尝试投递...")
+                    apply_for_job(driver, job_name, score)
+                else:
+                    print(f"职位匹配分数较低，不予投递: {score}")
+            except json.JSONDecodeError:
+                print("无法解析DeepSeek返回的JSON结果")
+            except Exception as json_error:
+                print(f"处理分析结果时出错: {str(json_error)}")
         return True
     except Exception as e:
         print(f'提取职位信息时发生错误: {str(e)}')
+        return False
+
+
+def apply_for_job(driver, job_name, score):
+    """
+    投递职位申请函数
+    """
+    try:
+        print(f"准备投递职位 '{job_name}' (匹配分数: {score})...")
+        
+        # 查找沟通按钮
+        chat_button = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, '.op-btn.op-btn-chat'))
+        )
+        
+        # 检查按钮文案，判断是否已经投递过
+        button_text = chat_button.text.strip()
+        if button_text == "继续沟通":
+            print(f"职位 '{job_name}' 已经投递过（按钮显示'继续沟通'），跳过投递")
+            return True
+        
+        # 确认是"立即沟通"按钮，可以投递
+        if button_text == "立即沟通":
+            # 点击"立即沟通"按钮
+            chat_button.click()
+            print(f"已点击'立即沟通'按钮，投递职位...")
+            
+            # 等待弹出对话框出现
+            print("等待确认对话框出现...")
+            time.sleep(1)
+            try:
+                # 等待"留在此页"按钮出现
+                stay_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, '.greet-boss-footer .cancel-btn'))
+                )
+                print("找到'留在此页'按钮，准备点击...")
+                
+                # 点击"留在此页"按钮
+                stay_button.click()
+                print("已点击'留在此页'按钮，完成投递流程")
+                
+                # 打印成功信息
+                print(f"成功投递职位: '{job_name}' (匹配分数: {score})")
+                return True
+            except Exception as dialog_error:
+                print(f"处理确认对话框时出错: {str(dialog_error)}")
+                return False
+        else:
+            print(f"未找到预期的按钮文案，当前职位可能已经投递过，当前按钮文本: '{button_text}'")
+            return False
+            
+    except Exception as apply_error:
+        print(f"尝试投递职位 '{job_name}' 时出错: {str(apply_error)}")
         return False
 
 
