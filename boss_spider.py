@@ -392,18 +392,6 @@ def process_job_details(driver, job_card, index):
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", job_card)
         time.sleep(0.5)  # 短暂等待滚动完成
 
-        # 检查是否已经投递过（按钮显示"继续沟通"）
-        try:
-            job_button = job_card.find_element(By.CSS_SELECTOR, '.op-btn.op-btn-chat')
-            button_text = job_button.text.strip()
-            
-            if button_text == "继续沟通":
-                print(f"职位 {index + 1} 已经投递过（按钮显示'继续沟通'），跳过...")
-                return True
-        except:
-            # 如果在卡片中找不到按钮，继续处理（可能在详情页会有按钮）
-            pass
-
         # 等待职位卡片中的链接元素可点击
         job_link = WebDriverWait(job_card, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, '.job-name'))
@@ -418,54 +406,28 @@ def process_job_details(driver, job_card, index):
             EC.presence_of_element_located((By.CSS_SELECTOR, '.job-detail-container'))
         )
 
+
         # 提取详情页信息
         salary, job_details = extract_salary_from_api(driver)
+
+        job_name = job_details.get("jobName", "")
+        # 查找沟通按钮
+        chat_button = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, '.op-btn.op-btn-chat'))
+        )
+        # 检查按钮文案，判断是否已经投递过
+        button_text = chat_button.text.strip()
+        if button_text == "继续沟通":
+            print(f"职位 '{job_name}' 已经投递过（按钮显示'继续沟通'），跳过投递")
+            return True
+
+
 
         # 可以在这里添加额外的处理逻辑
         if job_details:
             # 提取关键职位信息
-            job_name = job_details.get("jobName", "")
-            job_info = f"""
-            职位名称: {job_name}\n
-            公司名称: {job_details.get("company", {}).get("name", "")}\n
-            薪资范围: {salary}\n
-            工作地点: {job_details.get("city", "未指定")}\n
-            所需技能: {", ".join(job_details.get("skills", []))}\n
-            工作年限: {job_details.get("workYear", "未指定")}\n
-            职位描述: {job_details.get("description", "")}\n
-            学历要求: {job_details.get("education", "未指定")}\n
-            公司信息: {job_details.get("company", {})}\n
-            """
+            result = call_ai_to_analysis(job_details, job_name, salary)
 
-            # 构建提示，要求评估简历与职位匹配度
-            prompt = f"""请评估下面的简历与职位的匹配程度，并给出一个0-100的分数。
-
-            ## 职位信息:
-            {job_info}
-
-            ## 简历:
-            {resume_config.resume_content}
-
-            请以JSON格式返回结果，包含总分数和详细分析：
-            {{
-                "score": 数字,
-                "analysis": "详细分析...",
-                "skills_match": "技能匹配分析...",
-                "experience_match": "经验匹配分析...",
-                "industry_match": "行业匹配分析...",
-                "education_match": "教育背景匹配分析..."
-            }}
-            """
-
-            print(f"\n正在使用DeepSeek分析职位 '{job_name}' 与简历的匹配度...")
-
-            # 调用DeepSeek API进行分析
-            result = chat(prompt=prompt, system_prompt=resume_config.system_prompt)
-
-            # 打印分析结果
-            print(f"\n===== DeepSeek'{job_name}'分析结果 analysis result =====")
-            print(result)
-            
             # 解析JSON结果并提取分数
             try:
                 result_json = json.loads(result)
@@ -487,30 +449,70 @@ def process_job_details(driver, job_card, index):
         return False
 
 
+def call_ai_to_analysis(job_details, job_name, salary):
+    job_info = f"""
+            职位名称: {job_name}\n
+            公司名称: {job_details.get("company", {}).get("name", "")}\n
+            薪资范围: {salary}\n
+            工作地点: {job_details.get("city", "未指定")}\n
+            所需技能: {", ".join(job_details.get("skills", []))}\n
+            工作年限: {job_details.get("workYear", "未指定")}\n
+            职位描述: {job_details.get("description", "")}\n
+            学历要求: {job_details.get("education", "未指定")}\n
+            公司信息: {job_details.get("company", {})}\n
+            """
+    # 构建提示，要求评估简历与职位匹配度
+    prompt = f"""请评估下面的简历与职位的匹配程度，并给出一个0-100的分数。
+
+            ## 职位信息:
+            {job_info}
+
+            ## 简历:
+            {resume_config.resume_content}
+
+            请以JSON格式返回结果，包含总分数和详细分析：
+            {{
+                "score": 数字,
+                "analysis": "详细分析...",
+                "skills_match": "技能匹配分析...",
+                "experience_match": "经验匹配分析...",
+                "industry_match": "行业匹配分析...",
+                "education_match": "教育背景匹配分析..."
+            }}
+            """
+    print(f"\n正在使用DeepSeek分析职位 '{job_name}' 与简历的匹配度...")
+    # 调用DeepSeek API进行分析
+    result = chat(prompt=prompt, system_prompt=resume_config.system_prompt)
+    # 打印分析结果
+    print(f"\n===== DeepSeek'{job_name}'分析结果 analysis result =====")
+    print(result)
+    return result
+
+
 def apply_for_job(driver, job_name, score):
     """
     投递职位申请函数
     """
     try:
         print(f"准备投递职位 '{job_name}' (匹配分数: {score})...")
-        
+
         # 查找沟通按钮
         chat_button = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, '.op-btn.op-btn-chat'))
         )
-        
+
         # 检查按钮文案，判断是否已经投递过
         button_text = chat_button.text.strip()
         if button_text == "继续沟通":
             print(f"职位 '{job_name}' 已经投递过（按钮显示'继续沟通'），跳过投递")
             return True
-        
+
         # 确认是"立即沟通"按钮，可以投递
         if button_text == "立即沟通":
             # 点击"立即沟通"按钮
             chat_button.click()
             print(f"已点击'立即沟通'按钮，投递职位...")
-            
+
             # 等待弹出对话框出现
             print("等待确认对话框出现...")
             time.sleep(1)
@@ -520,11 +522,11 @@ def apply_for_job(driver, job_name, score):
                     EC.element_to_be_clickable((By.CSS_SELECTOR, '.greet-boss-footer .cancel-btn'))
                 )
                 print("找到'留在此页'按钮，准备点击...")
-                
+
                 # 点击"留在此页"按钮
                 stay_button.click()
                 print("已点击'留在此页'按钮，完成投递流程")
-                
+
                 # 打印成功信息
                 print(f"成功投递职位: '{job_name}' (匹配分数: {score})")
                 return True
@@ -534,7 +536,7 @@ def apply_for_job(driver, job_name, score):
         else:
             print(f"未找到预期的按钮文案，当前职位可能已经投递过，当前按钮文本: '{button_text}'")
             return False
-            
+
     except Exception as apply_error:
         print(f"尝试投递职位 '{job_name}' 时出错: {str(apply_error)}")
         return False
