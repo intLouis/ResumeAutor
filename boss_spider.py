@@ -2,15 +2,47 @@
 import json
 import os
 import time
+import random
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+# 尝试导入 undetected-chromedriver（推荐用于绑过反爬虫检测）
+try:
+    import undetected_chromedriver as uc
+    USE_UNDETECTED_CHROME = True
+    print("已加载 undetected-chromedriver，将使用反检测模式")
+except ImportError:
+    USE_UNDETECTED_CHROME = False
+    print("未安装 undetected-chromedriver，使用普通模式（可能被检测）")
+    print("建议运行: pip install undetected-chromedriver")
+
 import resume_config
 from deepseek import chat
+
+
+def random_sleep(min_seconds=0.5, max_seconds=2.0):
+    """随机等待，模拟人类行为"""
+    time.sleep(random.uniform(min_seconds, max_seconds))
+
+
+def human_like_click(driver, element):
+    """模拟人类点击行为：先移动到元素，再点击"""
+    try:
+        actions = ActionChains(driver)
+        # 先滚动到元素可见
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+        random_sleep(0.2, 0.5)
+        # 移动到元素并点击
+        actions.move_to_element(element).pause(random.uniform(0.1, 0.3)).click().perform()
+    except Exception:
+        # 如果 ActionChains 失败，使用 JavaScript 点击
+        driver.execute_script("arguments[0].click();", element)
 
 
 def extract_salary_from_api(driver):
@@ -184,30 +216,64 @@ def setup_browser():
     """配置并启动Chrome浏览器，返回WebDriver实例"""
     print("正在配置浏览器...")
 
-    # 配置Chrome选项以使用本机浏览器配置
-    chrome_options = Options()
-
-    # 避免使用已有的用户数据目录，改为创建临时目录
-    # chrome_options.add_argument("--headless")  # 无头模式，取消注释可在后台运行
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--disable-extensions")
-    chrome_options.add_argument("--disable-infobars")
-
-    # 重要：启用性能日志
-    chrome_options.set_capability('goog:loggingPrefs', {'performance': 'ALL'})
-
     # 使用一个临时的用户目录，避免与现有Chrome冲突
     temp_user_data_dir = os.path.join(os.getcwd(), "temp_chrome_profile")
     print(f"使用临时用户数据目录: {temp_user_data_dir}")
-    chrome_options.add_argument(f"user-data-dir={temp_user_data_dir}")
 
     try:
-        print("正在初始化WebDriver...")
-        # 使用配置好的选项创建Chrome WebDriver
-        driver = webdriver.Chrome(options=chrome_options)
-        print("WebDriver初始化成功，浏览器已打开")
+        # ===== 优先使用 undetected-chromedriver（反检测效果最好）=====
+        if USE_UNDETECTED_CHROME:
+            print("正在使用 undetected-chromedriver 初始化...")
+            
+            # undetected-chromedriver 配置
+            uc_options = uc.ChromeOptions()
+            uc_options.add_argument("--no-sandbox")
+            uc_options.add_argument("--disable-dev-shm-usage")
+            uc_options.add_argument("--disable-gpu")
+            uc_options.add_argument("--window-size=1920,1080")
+            uc_options.add_argument("--log-level=3")
+            uc_options.add_argument(f"--user-data-dir={temp_user_data_dir}")
+            
+            # 启用性能日志（用于抓取API响应）
+            uc_options.set_capability('goog:loggingPrefs', {'performance': 'ALL'})
+            
+            driver = uc.Chrome(options=uc_options, use_subprocess=True)
+            print("undetected-chromedriver 初始化成功！")
+        
+        else:
+            # ===== 备用方案：普通 Selenium + 反检测配置 =====
+            print("正在使用普通 Selenium 初始化...")
+            
+            chrome_options = Options()
+            chrome_options.add_argument("--no-sandbox")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--disable-gpu")
+            chrome_options.add_argument("--disable-infobars")
+            
+            # 反爬虫检测配置
+            chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+            chrome_options.add_argument("--window-size=1920,1080")
+            chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+            
+            chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
+            chrome_options.add_experimental_option('useAutomationExtension', False)
+            
+            chrome_options.add_argument("--log-level=3")
+            chrome_options.add_argument("--disable-software-rasterizer")
+            chrome_options.set_capability('goog:loggingPrefs', {'performance': 'ALL'})
+            chrome_options.add_argument(f"user-data-dir={temp_user_data_dir}")
+            
+            driver = webdriver.Chrome(options=chrome_options)
+            
+            # 注入 JavaScript 隐藏自动化特征
+            driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
+                'source': '''
+                    Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+                    Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5] });
+                    window.chrome = { runtime: {} };
+                '''
+            })
+            print("普通 Selenium 初始化成功，已注入反检测脚本")
 
         # 设置隐式等待时间
         driver.implicitly_wait(10)
@@ -267,80 +333,110 @@ def handle_login(driver):
 
 def apply_job_filters(driver):
     """应用工作筛选条件"""
-    print("尝试点击顶部的推荐按钮...")
+    print("尝试点击顶部导航栏的职位按钮...")
     try:
-        recommend_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, 'a[ka="header-job-recommend"]'))
+        # 点击导航栏中的"职位"链接
+        jobs_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, 'a[ka="header-jobs"]'))
         )
-        recommend_button.click()
-        print("成功点击推荐按钮，正在跳转到推荐页面...")
+        jobs_button.click()
+        print("成功点击职位按钮，正在跳转到职位页面...")
 
         # 等待页面加载完成
         WebDriverWait(driver, 10).until(
             lambda d: d.execute_script('return document.readyState') == 'complete'
         )
-        print("推荐页面加载完成，当前URL:", driver.current_url)
+        time.sleep(5)  # 额外等待确保页面完全加载
+        print("职位页面加载完成，当前URL:", driver.current_url)
 
-        # 选择工作经验3-5年的选项
-        print("尝试选择工作经验3-5年...")
+        # 在职位页面应用筛选条件
+        print("尝试应用筛选条件...")
 
-        # 先找到并点击工作经验下拉框
+        # 筛选框顺序：求职类型(0), 薪资待遇(1), 工作经验(2), 学历要求(3), 公司规模(4)
         try:
-            exp_dropdown = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH,
-                                            "//div[contains(@class, 'condition-filter-select')]/div[contains(@class, 'current-select')]/span[text()='工作经验']"))
-            )
-            exp_dropdown.click()
-            print("成功点击工作经验下拉框")
+            # 使用纯JavaScript一次性完成所有筛选操作
+            print("使用JavaScript设置筛选条件...")
 
-            # 等待下拉菜单显示，然后点击3-5年选项
-            exp_option = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, "li[ka='sel-job-rec-exp-105']"))
-            )
-            exp_option.click()
+            driver.execute_script("""
+                // 获取所有筛选下拉框
+                var filterSelects = document.querySelectorAll('.condition-filter-select');
+                console.log('找到筛选下拉框数量:', filterSelects.length);
+                
+                // 设置工作经验3-5年（索引2）
+                if (filterSelects.length > 2) {
+                    var expSelect = filterSelects[2];
+                    var expDropdown = expSelect.querySelector('.filter-select-dropdown');
+                    if (expDropdown) {
+                        expDropdown.style.display = 'block';
+                    }
+                }
+                
+                // 设置薪资待遇20-50K（索引1）
+                if (filterSelects.length > 1) {
+                    var salarySelect = filterSelects[1];
+                    var salaryDropdown = salarySelect.querySelector('.filter-select-dropdown');
+                    if (salaryDropdown) {
+                        salaryDropdown.style.display = 'block';
+                    }
+                }
+            """)
+            time.sleep(5)
+
+            # 先点击工作经验选项
+            exp_option = driver.find_element(By.CSS_SELECTOR, "li[ka='sel-job-rec-exp-105']")
+            driver.execute_script("arguments[0].click();", exp_option)
             print("成功选择3-5年工作经验")
+            time.sleep(5)  # 等待筛选生效
 
-            # 等待页面刷新并加载新的职位列表
-            time.sleep(2)
-            WebDriverWait(driver, 10).until(
-                lambda d: d.execute_script('return document.readyState') == 'complete'
-            )
-            print("筛选后的职位列表加载完成")
+            # 重新展开薪资下拉框（因为点击工作经验后下拉框会关闭）
+            driver.execute_script("""
+                var filterSelects = document.querySelectorAll('.condition-filter-select');
+                if (filterSelects.length > 1) {
+                    var salarySelect = filterSelects[1];
+                    var salaryDropdown = salarySelect.querySelector('.filter-select-dropdown');
+                    if (salaryDropdown) {
+                        salaryDropdown.style.display = 'block';
+                    }
+                }
+            """)
+            time.sleep(5)
 
-            # 选择薪资待遇20-50K
-            print("尝试选择薪资待遇20-50K...")
-
-            # 找到并点击薪资待遇下拉框
-            salary_dropdown = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH,
-                                            "//div[contains(@class, 'condition-filter-select')]/div[contains(@class, 'current-select')]/span[text()='薪资待遇']"))
-            )
-            salary_dropdown.click()
-            print("成功点击薪资待遇下拉框")
-
-            # 等待下拉菜单显示，然后点击20-50K选项
-            salary_option = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, "li[ka='sel-job-rec-salary-406']"))
-            )
-            salary_option.click()
+            # 点击薪资待遇选项
+            salary_option = driver.find_element(By.CSS_SELECTOR, "li[ka='sel-job-rec-salary-406']")
+            driver.execute_script("arguments[0].click();", salary_option)
             print("成功选择20-50K薪资范围")
 
-            # 等待页面刷新并加载新的职位列表
-            time.sleep(2)
+            # 等待职位列表加载完成（只等待一次）
+            time.sleep(5)
             WebDriverWait(driver, 10).until(
-                lambda d: d.execute_script('return document.readyState') == 'complete'
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".job-card-wrap"))
             )
-            print("薪资筛选后的职位列表加载完成")
-            return True
+            print("筛选条件设置完成，职位列表已加载")
 
         except Exception as filter_error:
             print(f"设置筛选条件时出错: {str(filter_error)}")
+            import traceback
+            traceback.print_exc()
             print("继续执行后续操作...")
-            return False
+
+        return True
+
     except Exception as e:
-        print(f"点击推荐按钮时发生错误: {str(e)}")
-        print("继续执行后续操作...")
-        return False
+        print(f"点击职位按钮时发生错误: {str(e)}")
+        print("尝试备用方案：直接访问职位页面URL...")
+
+        try:
+            # 备用方案：直接访问职位页面
+            driver.get("https://www.zhipin.com/web/geek/jobs")
+            WebDriverWait(driver, 10).until(
+                lambda d: d.execute_script('return document.readyState') == 'complete'
+            )
+            time.sleep(2)
+            print("成功通过URL直接访问职位页面，当前URL:", driver.current_url)
+            return True
+        except Exception as backup_error:
+            print(f"备用方案也失败: {str(backup_error)}")
+            return False
 
 
 def scroll_for_more_jobs(driver, pre_scroll_count):
@@ -406,7 +502,6 @@ def process_job_details(driver, job_card, index):
             EC.presence_of_element_located((By.CSS_SELECTOR, '.job-detail-container'))
         )
 
-
         # 提取详情页信息
         salary, job_details = extract_salary_from_api(driver)
 
@@ -420,8 +515,6 @@ def process_job_details(driver, job_card, index):
         if button_text == "继续沟通":
             print(f"职位 '{job_name}' 已经投递过（按钮显示'继续沟通'），跳过投递")
             return True
-
-
 
         # 可以在这里添加额外的处理逻辑
         if job_details:
