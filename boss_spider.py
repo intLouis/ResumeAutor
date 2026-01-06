@@ -383,7 +383,7 @@ def apply_job_filters(driver):
         WebDriverWait(driver, 10).until(
             lambda d: d.execute_script('return document.readyState') == 'complete'
         )
-        time.sleep(5)  # 额外等待确保页面完全加载
+        time.sleep(2.5)  # 额外等待确保页面完全加载
         print("职位页面加载完成，当前URL:", driver.current_url)
 
         # 在职位页面应用筛选条件
@@ -417,14 +417,14 @@ def apply_job_filters(driver):
                     }
                 }
             """)
-            time.sleep(5)
+            time.sleep(2.5)
 
             # 先点击工作经验选项（根据配置）
             exp_selector = f"li[ka='sel-job-rec-exp-{JOB_EXPERIENCE}']"
             exp_option = driver.find_element(By.CSS_SELECTOR, exp_selector)
             driver.execute_script("arguments[0].click();", exp_option)
             print(f"成功选择工作经验: {EXPERIENCE_OPTIONS.get(JOB_EXPERIENCE, '未知')}")
-            time.sleep(5)  # 等待筛选生效
+            time.sleep(2.5)  # 等待筛选生效
 
             # 重新展开薪资下拉框（因为点击工作经验后下拉框会关闭）
             driver.execute_script("""
@@ -437,7 +437,7 @@ def apply_job_filters(driver):
                     }
                 }
             """)
-            time.sleep(5)
+            time.sleep(2.5)
 
             # 点击薪资待遇选项（根据配置）
             salary_selector = f"li[ka='sel-job-rec-salary-{JOB_SALARY}']"
