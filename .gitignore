@@ -3,3 +3,6 @@ node_modules
 .idea
 # Chrome profile directory
 /temp_chrome_profile
+
+# 简历配置文件（包含个人隐私信息）
+resume_data.txt
