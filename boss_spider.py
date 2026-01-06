@@ -4,6 +4,7 @@ import os
 import time
 import random
 
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -12,7 +13,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-# 尝试导入 undetected-chromedriver（推荐用于绑过反爬虫检测）
+# 加载配置文件
+load_dotenv("config.env")
+
+# 尝试导入 undetected-chromedriver（推荐用于绕过反爬虫检测）
 try:
     import undetected_chromedriver as uc
     USE_UNDETECTED_CHROME = True
@@ -24,6 +28,39 @@ except ImportError:
 
 import resume_config
 from deepseek import chat
+
+# 从配置文件读取配置
+MATCH_SCORE_THRESHOLD = int(os.getenv("MATCH_SCORE_THRESHOLD", "85"))
+JOB_EXPERIENCE = os.getenv("JOB_EXPERIENCE", "105")
+JOB_SALARY = os.getenv("JOB_SALARY", "406")
+
+# 工作经验选项映射
+EXPERIENCE_OPTIONS = {
+    "0": "不限",
+    "108": "在校生",
+    "102": "应届生",
+    "101": "经验不限",
+    "103": "1年以内",
+    "104": "1-3年",
+    "105": "3-5年",
+    "106": "5-10年",
+    "107": "10年以上"
+}
+
+# 薪资待遇选项映射
+SALARY_OPTIONS = {
+    "0": "不限",
+    "402": "3K以下",
+    "403": "3-5K",
+    "404": "5-10K",
+    "405": "10-20K",
+    "406": "20-50K",
+    "407": "50K以上"
+}
+
+print(f"匹配分数阈值: {MATCH_SCORE_THRESHOLD}")
+print(f"工作经验筛选: {EXPERIENCE_OPTIONS.get(JOB_EXPERIENCE, '未知')}")
+print(f"薪资待遇筛选: {SALARY_OPTIONS.get(JOB_SALARY, '未知')}")
 
 
 def random_sleep(min_seconds=0.5, max_seconds=2.0):
@@ -382,10 +419,11 @@ def apply_job_filters(driver):
             """)
             time.sleep(5)
 
-            # 先点击工作经验选项
-            exp_option = driver.find_element(By.CSS_SELECTOR, "li[ka='sel-job-rec-exp-105']")
+            # 先点击工作经验选项（根据配置）
+            exp_selector = f"li[ka='sel-job-rec-exp-{JOB_EXPERIENCE}']"
+            exp_option = driver.find_element(By.CSS_SELECTOR, exp_selector)
             driver.execute_script("arguments[0].click();", exp_option)
-            print("成功选择3-5年工作经验")
+            print(f"成功选择工作经验: {EXPERIENCE_OPTIONS.get(JOB_EXPERIENCE, '未知')}")
             time.sleep(5)  # 等待筛选生效
 
             # 重新展开薪资下拉框（因为点击工作经验后下拉框会关闭）
@@ -401,10 +439,11 @@ def apply_job_filters(driver):
             """)
             time.sleep(5)
 
-            # 点击薪资待遇选项
-            salary_option = driver.find_element(By.CSS_SELECTOR, "li[ka='sel-job-rec-salary-406']")
+            # 点击薪资待遇选项（根据配置）
+            salary_selector = f"li[ka='sel-job-rec-salary-{JOB_SALARY}']"
+            salary_option = driver.find_element(By.CSS_SELECTOR, salary_selector)
             driver.execute_script("arguments[0].click();", salary_option)
-            print("成功选择20-50K薪资范围")
+            print(f"成功选择薪资待遇: {SALARY_OPTIONS.get(JOB_SALARY, '未知')}")
 
             # 等待职位列表加载完成（只等待一次）
             time.sleep(5)
@@ -526,12 +565,12 @@ def process_job_details(driver, job_card, index):
                 result_json = json.loads(result)
                 score = result_json.get("score", 0)
 
-                # 如果分数大于85，调用投递函数
-                if score >= 85:
-                    print(f"职位 '{job_name}' 匹配分数高于85，尝试投递...")
+                # 如果分数达到阈值，调用投递函数
+                if score >= MATCH_SCORE_THRESHOLD:
+                    print(f"职位 '{job_name}' 匹配分数 {score} >= {MATCH_SCORE_THRESHOLD}，尝试投递...")
                     apply_for_job(driver, job_name, score)
                 else:
-                    print(f"职位匹配分数较低，不予投递: {score}")
+                    print(f"职位匹配分数 {score} < {MATCH_SCORE_THRESHOLD}，不予投递")
             except json.JSONDecodeError:
                 print("无法解析DeepSeek返回的JSON结果")
             except Exception as json_error:
