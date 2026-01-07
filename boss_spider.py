@@ -34,6 +34,11 @@ MATCH_SCORE_THRESHOLD = int(os.getenv("MATCH_SCORE_THRESHOLD", "85"))
 JOB_EXPERIENCE = os.getenv("JOB_EXPERIENCE", "105")
 JOB_SALARY = os.getenv("JOB_SALARY", "406")
 
+# 公司黑名单配置
+COMPANY_BLACKLIST_STR = os.getenv("COMPANY_BLACKLIST", "")
+# 解析黑名单，去除空白并过滤空字符串
+COMPANY_BLACKLIST = [company.strip() for company in COMPANY_BLACKLIST_STR.split(",") if company.strip()]
+
 # 工作经验选项映射
 EXPERIENCE_OPTIONS = {
     "0": "不限",
@@ -593,12 +598,21 @@ def call_ai_to_analysis(job_details, job_name, salary):
             学历要求: {job_details.get("education", "未指定")}\n
             公司信息: {job_details.get("company", {})}\n
             """
+    # 构建黑名单提示
+    blacklist_hint = ""
+    if COMPANY_BLACKLIST:
+        blacklist_hint = f"""
+            ## 公司黑名单（不投递）:
+            以下公司不考虑投递，如果职位所属公司匹配黑名单中的任一公司或与其相关的公司，请直接不予投递：
+            {', '.join(COMPANY_BLACKLIST)}
+            """
+    
     # 构建提示，要求评估简历与职位匹配度
     prompt = f"""请评估下面的简历与职位的匹配程度，并给出一个0-100的分数。
 
             ## 职位信息:
             {job_info}
-
+            {blacklist_hint}
             ## 简历:
             {resume_config.resume_content}
 
@@ -746,9 +760,7 @@ def main():
         print("当前页面URL:", driver.current_url)
 
         # 等待页面加载完成
-        WebDriverWait(driver, 10).until(
-            lambda d: d.execute_script('return document.readyState') == 'complete'
-        )
+        time.sleep(3)
         print('成功打开BOSS直聘官网')
 
         # 处理登录
